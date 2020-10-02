@@ -5,7 +5,7 @@ export default class createCustomers1601507693875 implements MigrationInterface 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-          name:'customers',
+          name:'custumers',
           columns: [
             {
               name: 'id',
@@ -38,7 +38,7 @@ export default class createCustomers1601507693875 implements MigrationInterface 
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('customers');
+      await queryRunner.dropTable('custumers');
     }
 
 }
