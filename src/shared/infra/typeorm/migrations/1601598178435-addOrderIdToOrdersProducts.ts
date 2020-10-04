@@ -2,30 +2,31 @@ import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from "ty
 
 export default  class addOrderIdToOrdersProducts1601598178435 implements MigrationInterface {
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.addColumn(
-        'orders_products',
-        new TableColumn({
-          name: 'order_id',
-          type: 'uuid',
-          isNullable:true,
-        }),
-      );
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.addColumn(
+      'orders_products',
+      new TableColumn({
+        name: 'order_id',
+        type: 'uuid',
+        isNullable: true,
+      }),
+    );
 
-      await queryRunner.createForeignKey('orders_products',
+    await queryRunner.createForeignKey(
+      'orders_products',
       new TableForeignKey({
-        name:'OrdersProductsOrder',
-        columnNames:['order_id'],
-        referencedColumnNames:['id'],
-        referencedTableName:'orders',
+        name: 'OrdersProductsOrder',
+        columnNames: ['order_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'orders',
         onDelete: 'SET NULL',
       }),
-      )
-    }
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropForeignKey('orders_products','OrdersProductsOrder');
-      await queryRunner.dropColumn('orders_products', 'order_id');
-    }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('orders_products', 'OrdersProductsOrder');
+    await queryRunner.dropColumn('orders_products', 'order_id');
+  }
 
 }
